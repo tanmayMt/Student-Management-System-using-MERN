@@ -8,13 +8,15 @@ const connectDB = require("./config/db");
 dotenv.config();
 const app = express();
 
+// MongoDB connection
+connectDB();
+
+
+
 // Middleware to Parse json data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Add this line
 
-
-// MongoDB connection
-connectDB();
 
 app.get("/",(req,res)=>{
     res.send("<h1>Welcome To Student Management Server</h1>")
