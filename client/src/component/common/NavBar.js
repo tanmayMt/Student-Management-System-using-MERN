@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import studentLogo from './studentLogo.png';
 import reactLogo from './react.png';
-import springLogo from './springLogo.png'
+import nodejsLogo from './nodejs.png'
 import logoT from './logoT.png';
 
 import './logo.css';
@@ -34,14 +34,16 @@ const NavBar = () => {
 							<Link
 								className="nav-link active"
 								aria-current="page"
-								to={"/view-students"}>
+								// to={"/view-students"}
+								to={"/student/allStudents"}
+								>
 								All Students
 							</Link>
 						</li>
 						<li className="nav-item">
 							<Link
 								className="nav-link"
-								to={"/add-students"}>
+								to={"/student/add-student"}>
 								Add New Student
 							</Link>
 						</li>
@@ -49,13 +51,19 @@ const NavBar = () => {
 				</div>
 			</div>
 			<div>
-				<img src={springLogo} alt="Spring Logo" class="logo"></img>
+				<Link to={"https://github.com/tanmayMt/Let-s_Learn_NodeJS_ExpressJS"}>
+				 <img src={nodejsLogo} alt="Nodejs Logo" class="logo"></img>
+				</Link>
 			</div>
 			<div>
-				<img src={reactLogo} alt="ReactJS Logo" class="logo"></img>
+				<Link to={"https://github.com/tanmayMt/Let-s_Learn_ReactJS"}>
+				 <img src={reactLogo} alt="ReactJS Logo" class="logo"></img>
+				</Link>
 			</div>
 			<div>
-				<img src={logoT} alt="Logo T" class="logo"></img>
+				<Link to={"https://portfolio1-three-silk.vercel.app"}>
+				 <img src={logoT} alt="Logo T" class="logo"></img>
+				</Link>
 			</div>
 		</nav>
 		

@@ -29,10 +29,10 @@ const AddStudent = () => {
 	const saveStudent = async (e) => {
 		e.preventDefault();
 		await axios.post(
-			"http://localhost:9192/students",
+			"http://localhost:9007/student/add-student",
 			student
 		);
-		navigate("/view-students");
+		navigate("/student/allStudents");
 	};
 
 	return (
@@ -118,7 +118,7 @@ const AddStudent = () => {
 
 					<div className="col-sm-2">
 						<Link
-							to={"/view-students"}
+							to={"/student/allStudents"}
 							type="submit"
 							className="btn btn-outline-warning btn-lg">
 							Cancel

@@ -21,15 +21,16 @@ const StudentsView = () => {
 
 	const loadStudents = async () => {
 		const result = await axios.get(
-			"http://localhost:9192/students",
+			"http://localhost:9007/student/allStudents",
 			{
 				validateStatus: () => {
 					return true;
 				},
 			}
 		);
-		if (result.status === 302) {
-			setStudents(result.data);
+		console.log(result);
+		if (result.status === 200) {
+			setStudents(result.data.data);
 		}
 	};
 
@@ -76,14 +77,14 @@ const StudentsView = () => {
 								<td>{student.department}</td>
 								<td className="mx-2">
 									<Link
-										to={`/student-profile/${student.id}`}
+										to={`/student/student-profile/${student.id}`}
 										className="btn btn-info">
 										<FaEye />
 									</Link>
 								</td>
 								<td className="mx-2">
 									<Link
-										to={`/edit-student/${student.id}`}
+										to={`/student/edit-student/${student.id}`}
 										className="btn btn-warning">
 										<FaEdit />
 									</Link>

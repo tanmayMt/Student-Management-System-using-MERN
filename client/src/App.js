@@ -26,19 +26,19 @@ function App() {
 						element={<Home />}></Route>
 					<Route
 						exact
-						path="/view-students"
+						path="/student/allStudents"
 						element={<StudentsView />}></Route>
 					<Route
 						exact
-						path="/add-students"
+						path="/student/add-student"
 						element={<AddStudent />}></Route>
 					<Route
 						exact
-						path="/edit-student/:id"
+						path="/student/edit-student/:id"
 						element={<EditStudent />}></Route>
 					<Route
 						exact
-						path="/student-profile/:id"
+						path="/student/student-profile/:id"
 						element={<StudentPofile />}></Route>
 				</Routes>
 				<Footer/>

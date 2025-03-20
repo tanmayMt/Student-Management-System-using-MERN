@@ -34,7 +34,7 @@ const EditStudent = () => {
 
 	const loadStudent = async () => {
 		const result = await axios.get(
-			`http://localhost:9192/students/student/${id}`
+			`http://localhost:9192/student/${id}`
 		);
 		setStudent(result.data);
 	};
@@ -48,7 +48,7 @@ const EditStudent = () => {
 	const updateStudent = async (e) => {
 		e.preventDefault();
 		await axios.put(
-			`http://localhost:9192/students/update/${id}`,
+			`http://localhost:9192/student/update/${id}`,
 			student
 		);
 		navigate("/view-students");
@@ -137,7 +137,7 @@ const EditStudent = () => {
 
 					<div className="col-sm-2">
 						<Link
-							to={"/view-students"}
+							to={"/student/allStudents"}
 							type="submit"
 							className="btn btn-outline-warning btn-lg">
 							Cancel

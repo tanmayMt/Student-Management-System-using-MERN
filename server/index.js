@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require('mongoose'); // Import Mongoose for MongoDB
+const cors = require("cors");
 const studentRoute = require('./routes/studentRoute');
 const connectDB = require("./config/db");
 
@@ -11,11 +12,20 @@ const app = express();
 // MongoDB connection
 connectDB();
 
+// ✅ CORS Configuration
+const corsOptions = {
+    origin: "http://localhost:3000", // Allow frontend requests
+    // origin: "https://blog-application-using-mern.vercel.app",    // https://blog-application-using-mern.vercel.app
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true // Allow cookies and authentication headers
+};
 
+app.use(cors(corsOptions));
 
 // Middleware to Parse json data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Add this line
+
 
 
 app.get("/",(req,res)=>{

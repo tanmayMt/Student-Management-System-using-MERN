@@ -1,14 +1,14 @@
 import React from 'react';
 import './footer.css';
-import springBootBanner from './spring-boot-banner.png'; // Replace with the actual path to your banner image
+import nodejsBanner from './nodejs-banner.png'; // Replace with the actual path to your banner image
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <Link to="https://github.com/tanmayMt/Student_Management_System_using_Spring_Boot">
-         <img src={springBootBanner} alt="Spring Boot Banner" className="banner-image" />
+        <Link to="https://github.com/tanmayMt/Let-s_Learn_NodeJS_ExpressJS">
+         <img src={nodejsBanner} alt="nodejs Banner" className="banner-image" />
         </Link>
       </div>
       <div>
