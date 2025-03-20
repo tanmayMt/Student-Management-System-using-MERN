@@ -10,6 +10,8 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Search from "../common/Search";
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StudentsView = () => {
 	const [students, setStudents] = useState([]);
@@ -34,15 +36,41 @@ const StudentsView = () => {
 		}
 	};
 
-	const handleDelete = async (id) => {
-		await axios.delete(
+	// const handleDelete = async (id) => {
+	// 	await axios.delete(
+	// 		`http://localhost:9007/student/delete/${id}`
+	// 	);
+	// 	loadStudents();
+	// };
+const handleDelete = async (id) => {
+	try {
+		const result = await axios.delete(
 			`http://localhost:9007/student/delete/${id}`
 		);
-		loadStudents();
-	};
+		if (result.status === 200) {
+			toast.success("Student deleted successfully!", {
+				position: "top-center",
+				autoClose: 1500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				theme: "dark",
+			});
+			loadStudents(); // Reload students after deletion
+		} else {
+			toast.error("Failed to delete student. Please try again.");
+		}
+	} catch (error) {
+		toast.error("Error deleting student!");
+		console.error("Error:", error.message);
+	}
+};
+
 
 	return (
 		<section>
+			<ToastContainer />
 			<Search
 				search={search}
 				setSearch={setSearch}
