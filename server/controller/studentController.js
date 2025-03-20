@@ -59,7 +59,7 @@ exports.addStudent = async (req, res) => {
       <p style="font-size: 16px; color: #555;">You have been successfully registered in the <b>${department}</b> department.</p>
       <p style="font-size: 14px; color: #777;">Your email: <b>${email}</b></p>
       <div style="margin-top: 20px;">
-        <a href="http://localhost:3000/student/student-profile/${newStudent._id}" 
+        <a href="http://student-management-system-using-mern.vercel.app/student/student-profile/${newStudent._id}" 
            style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
            📚 View Your Profile
         </a>
