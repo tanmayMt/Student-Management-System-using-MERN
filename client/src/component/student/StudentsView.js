@@ -21,9 +21,10 @@ const StudentsView = () => {
 		loadStudents();
 	}, []);
 
-	const loadStudents = async () => {
+	const loadStudents = async () => {  
 		const result = await axios.get(
-			"http://localhost:9007/student/all-students",
+			// "http://localhost:9007/student/all-students",
+			`${process.env.REACT_APP_API_URL}/student/all-students`,
 			{
 				validateStatus: () => {
 					return true;
@@ -45,7 +46,7 @@ const StudentsView = () => {
 const handleDelete = async (id) => {
 	try {
 		const result = await axios.delete(
-			`http://localhost:9007/student/delete/${id}`
+			`${process.env.REACT_APP_API_URL}/student/delete/${id}`
 		);
 		if (result.status === 200) {
 			toast.success("Student deleted successfully!", {

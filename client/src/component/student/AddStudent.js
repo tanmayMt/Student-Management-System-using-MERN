@@ -33,7 +33,7 @@ const saveStudent = async (e) => {
   e.preventDefault();
   try {
     const response = await axios.post(
-      "http://localhost:9007/student/add-student",
+      `${process.env.REACT_APP_API_URL}/student/add-student`,
       student
     );
 

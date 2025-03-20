@@ -23,7 +23,7 @@ const EditStudent = () => {
 
     const loadStudent = async () => {
         const result = await axios.get(
-            `http://localhost:9007/student/student-profile/${id}`
+            `${process.env.REACT_APP_API_URL}/student/student-profile/${id}`
         );
         setStudent(result.data.data);
     };
@@ -39,7 +39,7 @@ const EditStudent = () => {
         e.preventDefault();
         try {
             await axios.put(
-                `http://localhost:9007/student/edit-student/${id}`,
+                `${process.env.REACT_APP_API_URL}/student/edit-student/${id}`,
                 student
             );
 
