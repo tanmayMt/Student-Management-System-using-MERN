@@ -34,6 +34,7 @@ app.get("/",(req,res)=>{
 app.use("/student",studentRoute);
 
 const PORT = process.env.PORT;
+
 app.listen(PORT,()=>{
     console.log(`Server is Running at http://localhost:${PORT}`)
 });

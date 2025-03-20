@@ -43,13 +43,54 @@ const StudentsView = () => {
 	// 	);
 	// 	loadStudents();
 	// };
+// const handleDelete = async (id) => {
+// 	try {
+// 		const result = await axios.delete(
+// 			`${process.env.REACT_APP_API_URL}/student/delete/${id}`
+// 		);
+// 		if (result.status === 200) {
+// 			toast.success("Student deleted successfully!", {
+// 				position: "top-center",
+// 				autoClose: 1500,
+// 				hideProgressBar: false,
+// 				closeOnClick: true,
+// 				pauseOnHover: true,
+// 				draggable: true,
+// 				theme: "dark",
+// 			});
+// 			loadStudents(); // Reload students after deletion
+// 		} else {
+// 			toast.error("Failed to delete student. Please try again.");
+// 		}
+// 	} catch (error) {
+// 		toast.error("Error deleting student!");
+// 		console.error("Error:", error.message);
+// 	}
+// };
 const handleDelete = async (id) => {
 	try {
+		// 🚨 Confirm before deleting
+		const confirmDelete = window.confirm(
+			"⚠️ Are you sure you want to delete this student?"
+		);
+
+		// 🛑 Stop if user clicks "Cancel"
+		if (!confirmDelete) {
+			toast.info("⏳ Deletion cancelled!", {
+				position: "top-center",
+				autoClose: 1000,
+				theme: "dark",
+			});
+			return;
+		}
+
+		// ✅ Proceed with deletion
 		const result = await axios.delete(
 			`${process.env.REACT_APP_API_URL}/student/delete/${id}`
 		);
+
 		if (result.status === 200) {
-			toast.success("Student deleted successfully!", {
+			toast.success("✅ Student deleted successfully!🛑", {
 				position: "top-center",
 				autoClose: 1500,
 				hideProgressBar: false,
@@ -58,12 +99,22 @@ const handleDelete = async (id) => {
 				draggable: true,
 				theme: "dark",
 			});
-			loadStudents(); // Reload students after deletion
+
+			// Reload students after deletion
+			loadStudents();
 		} else {
-			toast.error("Failed to delete student. Please try again.");
+			toast.error("❌ Failed to delete student. Please try again.", {
+				position: "top-center",
+				autoClose: 1500,
+				theme: "dark",
+			});
 		}
 	} catch (error) {
-		toast.error("Error deleting student!");
+		toast.error("❌ Error deleting student!", {
+			position: "top-center",
+			autoClose: 1500,
+			theme: "dark",
+		});
 		console.error("Error:", error.message);
 	}
 };
