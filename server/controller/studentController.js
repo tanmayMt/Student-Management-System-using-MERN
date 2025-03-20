@@ -1,4 +1,5 @@
 const Student = require("../model/Student");
+const sendEmail = require("../config/sendEmail");  //email confirmation
 
 // Get all students
 exports.getAllStudents = async(req, res) => {
@@ -40,6 +41,44 @@ exports.addStudent = async (req, res) => {
 
     // Save student to database
     const savedStudent = await newStudent.save();
+
+    // Prepare email content
+    const message = `
+<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+  <div style="max-width: 600px; background-color: #ffffff; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden;">
+    <div style="background-color: #4CAF50; color: white; padding: 15px; text-align: center;">
+      <h2 style="margin: 0;">🎉 Student Registration Successful!</h2>
+    </div>
+    <div style="padding: 20px; text-align: center;">
+      <img 
+          src="https://img.freepik.com/free-vector/registration-online-concept-illustration_114360-7893.jpg" 
+           alt="Welcome Student" 
+           width="200" 
+           style="margin-bottom: 20px;">
+      <p style="font-size: 18px; color: #333;">Hi <b>${firstName} ${lastName}</b>,</p>
+      <p style="font-size: 16px; color: #555;">You have been successfully registered in the <b>${department}</b> department.</p>
+      <p style="font-size: 14px; color: #777;">Your email: <b>${email}</b></p>
+      <div style="margin-top: 20px;">
+        <a href="http://localhost:3000/student/student-profile/${newStudent._id}" 
+           style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+           📚 View Your Profile
+        </a>
+      </div>
+    </div>
+    <div style="background-color: #f4f4f4; color: #777; padding: 10px; text-align: center;">
+      <p style="margin: 0;">&copy; 2024 Student Management System | All Rights Reserved</p>
+    </div>
+  </div>
+</div>
+
+    `;
+
+    // Send email confirmation
+    await sendEmail({
+      email: savedStudent.email,
+      subject: "Student Registration Successful! Confirmation email sent.",
+      message,
+    });
 
     res.status(201).json({
       success: true,

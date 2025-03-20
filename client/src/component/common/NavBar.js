@@ -1,4 +1,5 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import studentLogo from './studentLogo.png';
 import reactLogo from './react.png';
@@ -6,6 +7,8 @@ import nodejsLogo from './nodejs.png'
 import logoT from './logoT.png';
 
 import './logo.css';
+
+
 const NavBar = () => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
@@ -60,13 +63,12 @@ const NavBar = () => {
 				 <img src={reactLogo} alt="ReactJS Logo" class="logo"></img>
 				</Link>
 			</div>
-			<div>
+			<div >
 				<Link to={"https://portfolio1-three-silk.vercel.app"}>
 				 <img src={logoT} alt="Logo T" class="logo"></img>
 				</Link>
 			</div>
 		</nav>
-		
 	);
 };
 
