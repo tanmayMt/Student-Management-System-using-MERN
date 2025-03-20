@@ -21,14 +21,14 @@ const StudentsView = () => {
 
 	const loadStudents = async () => {
 		const result = await axios.get(
-			"http://localhost:9007/student/allStudents",
+			"http://localhost:9007/student/all-students",
 			{
 				validateStatus: () => {
 					return true;
 				},
 			}
 		);
-		console.log(result);
+		// console.log(result);
 		if (result.status === 200) {
 			setStudents(result.data.data);
 		}
@@ -36,7 +36,7 @@ const StudentsView = () => {
 
 	const handleDelete = async (id) => {
 		await axios.delete(
-			`http://localhost:9192/students/delete/${id}`
+			`http://localhost:9007/student/delete/${id}`
 		);
 		loadStudents();
 	};
@@ -67,7 +67,7 @@ const StudentsView = () => {
 								.includes(search)
 						)
 						.map((student, index) => (
-							<tr key={student.id}>
+							<tr key={student._id}>
 								<th scope="row" key={index}>
 									{index + 1}
 								</th>
@@ -77,14 +77,14 @@ const StudentsView = () => {
 								<td>{student.department}</td>
 								<td className="mx-2">
 									<Link
-										to={`/student/student-profile/${student.id}`}
+										to={`/student/student-profile/${student._id}`}
 										className="btn btn-info">
 										<FaEye />
 									</Link>
 								</td>
 								<td className="mx-2">
 									<Link
-										to={`/student/edit-student/${student.id}`}
+										to={`/student/edit-student/${student._id}`}
 										className="btn btn-warning">
 										<FaEdit />
 									</Link>
@@ -93,7 +93,7 @@ const StudentsView = () => {
 									<button
 										className="btn btn-danger"
 										onClick={() =>
-											handleDelete(student.id)
+											handleDelete(student._id)
 										}>
 										<FaTrashAlt />
 									</button>

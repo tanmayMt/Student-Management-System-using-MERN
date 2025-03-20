@@ -35,7 +35,7 @@ const NavBar = () => {
 								className="nav-link active"
 								aria-current="page"
 								// to={"/view-students"}
-								to={"/student/allStudents"}
+								to={"/student/all-students"}
 								>
 								All Students
 							</Link>

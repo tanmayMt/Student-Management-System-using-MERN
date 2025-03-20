@@ -32,7 +32,7 @@ const AddStudent = () => {
 			"http://localhost:9007/student/add-student",
 			student
 		);
-		navigate("/student/allStudents");
+		navigate("/student/all-students");
 	};
 
 	return (

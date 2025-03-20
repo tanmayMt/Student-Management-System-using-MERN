@@ -14,6 +14,7 @@ const EditStudent = () => {
 	let navigate = useNavigate();
 
 	const { id } = useParams();
+	// console.log(id);
 
 	const [student, setStudent] = useState({
 		firstName: "",
@@ -34,9 +35,9 @@ const EditStudent = () => {
 
 	const loadStudent = async () => {
 		const result = await axios.get(
-			`http://localhost:9192/student/${id}`
+			`http://localhost:9007/student/student-profile/${id}`
 		);
-		setStudent(result.data);
+		setStudent(result.data.data);
 	};
 
 	const handleInputChange = (e) => {
@@ -48,10 +49,10 @@ const EditStudent = () => {
 	const updateStudent = async (e) => {
 		e.preventDefault();
 		await axios.put(
-			`http://localhost:9192/student/update/${id}`,
+			`http://localhost:9007/student/edit-student/${id}`,
 			student
 		);
-		navigate("/view-students");
+		navigate("/student/all-students");
 	};
 
 	return (
@@ -137,7 +138,7 @@ const EditStudent = () => {
 
 					<div className="col-sm-2">
 						<Link
-							to={"/student/allStudents"}
+							to={"/student/all-students"}
 							type="submit"
 							className="btn btn-outline-warning btn-lg">
 							Cancel
