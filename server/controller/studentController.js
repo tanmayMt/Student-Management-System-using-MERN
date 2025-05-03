@@ -1,5 +1,6 @@
 const Student = require("../model/Student");
 const sendEmail = require("../config/sendEmail");  //email confirmation
+const auth = require("../middleware/authMiddleware");
 
 // Get all students
 exports.getAllStudents = async(req, res) => {

@@ -13,7 +13,7 @@ import {
 import AddStudent from "./component/student/AddStudent";
 import EditStudent from "./component/student/EditStudent";
 import StudentPofile from "./component/student/StudentPofile";
-
+import AdminLogin from "./component/admin/Login";
 function App() {
 	return (
 		<main className="container mt-5">
@@ -24,6 +24,10 @@ function App() {
 						exact
 						path="/"
 						element={<Home />}></Route>
+					<Route
+						exact
+						path="/admin/login"
+						element={<AdminLogin/>}></Route>						
 					<Route
 						exact
 						path="/student/all-students"

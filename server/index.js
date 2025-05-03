@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const mongoose = require('mongoose'); // Import Mongoose for MongoDB
 const cors = require("cors");
 const studentRoute = require('./routes/studentRoute');
+const adminRoute = require('./routes/authRoutes');
 const connectDB = require("./config/db");
 
 //dotenv configuartion
@@ -14,8 +15,8 @@ connectDB();
 
 // ✅ CORS Configuration
 const corsOptions = {
-    //origin: "http://localhost:3000", // Allow frontend requests
-    origin: "https://student-management-system-using-mern.vercel.app",    // https://student-management-system-using-mern.vercel.app
+    origin: "http://localhost:3000", // Allow frontend requests
+    //origin: "https://student-management-system-using-mern.vercel.app",    // https://student-management-system-using-mern.vercel.app
     methods: "GET,POST,PUT,DELETE",
     credentials: true // Allow cookies and authentication headers
 };
@@ -32,6 +33,7 @@ app.get("/",(req,res)=>{
     res.send("<h1>Welcome To Student Management Server</h1>")
 });
 app.use("/student",studentRoute);
+app.use("/admin",adminRoute)
 
 const PORT = process.env.PORT;
 
