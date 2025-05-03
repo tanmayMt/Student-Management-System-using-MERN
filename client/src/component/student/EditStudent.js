@@ -25,37 +25,43 @@ const EditStudent = () => {
 	}, []);
 
 	// ✅ Load Student by ID
-	const loadStudent = async () => {
-		try {
-			const result = await axios.get(
-				`${process.env.REACT_APP_API_URL}/student/student-profile/${id}`
-			);
-
-			if (result.status === 200) {
-				setStudent(result.data.data);
-				setLoading(false);
+const loadStudent = async () => {
+	try {
+		const token = localStorage.getItem("token");
+		const result = await axios.get(
+			`${process.env.REACT_APP_API_URL}/student/student-profile/${id}`,
+			{
+				headers: {
+					Authorization: `${token}`,
+				},
 			}
-		} catch (error) {
+		);
+
+		if (result.status === 200) {
+			setStudent(result.data.data);
 			setLoading(false);
-			console.error("Error loading student:", error);
-
-			// 🚨 Handle student not found
-			if (error.response && error.response.status === 404) {
-				setStudentExists(false);
-				toast.error("⚠️ Student not found! Check the ID.", {
-					position: "top-center",
-					autoClose: 1500,
-					theme: "dark",
-				});
-			} else {
-				toast.error("❌ Error loading student details!", {
-					position: "top-center",
-					autoClose: 1500,
-					theme: "dark",
-				});
-			}
 		}
-	};
+	} catch (error) {
+		setLoading(false);
+		console.error("Error loading student:", error);
+
+		if (error.response && error.response.status === 404) {
+			setStudentExists(false);
+			toast.error("⚠️ Student not found! Check the ID.", {
+				position: "top-center",
+				autoClose: 1500,
+				theme: "dark",
+			});
+		} else {
+			toast.error("❌ Error loading student details!", {
+				position: "top-center",
+				autoClose: 1500,
+				theme: "dark",
+			});
+		}
+	}
+};
+
 
 	// ✅ Handle Input Change
 	const handleInputChange = (e) => {
@@ -66,38 +72,42 @@ const EditStudent = () => {
 	};
 
 	// ✅ Update Student Handler
-	const updateStudent = async (e) => {
-		e.preventDefault();
+const updateStudent = async (e) => {
+	e.preventDefault();
 
-		try {
-			const result = await axios.put(
-				`${process.env.REACT_APP_API_URL}/student/edit-student/${id}`,
-				student
-			);
-
-			if (result.status === 200) {
-				// 🎉 Success toast
-				toast.success("✅ Student updated successfully!", {
-					position: "top-center",
-					autoClose: 1200,
-					theme: "colored",
-				});
-
-				setTimeout(() => {
-					navigate("/student/all-students");
-				}, 1300);
+	try {
+		const token = localStorage.getItem("token");
+		const result = await axios.put(
+			`${process.env.REACT_APP_API_URL}/student/edit-student/${id}`,
+			student,
+			{
+				headers: {
+					Authorization: `${token}`,
+				},
 			}
-		} catch (error) {
-			console.error("Error updating student:", error);
+		);
 
-			// 🚨 Show error toast if update fails
-			toast.error("⚠️ Failed to update student. Please try again.", {
+		if (result.status === 200) {
+			toast.success("✅ Student updated successfully!", {
 				position: "top-center",
-				autoClose: 1500,
-				theme: "dark",
+				autoClose: 1200,
+				theme: "colored",
 			});
+
+			setTimeout(() => {
+				navigate("/student/all-students");
+			}, 1300);
 		}
-	};
+	} catch (error) {
+		console.error("Error updating student:", error);
+		toast.error("⚠️ Failed to update student. Please try again.", {
+			position: "top-center",
+			autoClose: 1500,
+			theme: "dark",
+		});
+	}
+};
+
 
 	return (
 		<div className="col-sm-8 py-4 px-5 offset-2 shadow">

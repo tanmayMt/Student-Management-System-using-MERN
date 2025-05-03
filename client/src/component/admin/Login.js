@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
+
 
 const Login = () => {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -15,8 +18,9 @@ const Login = () => {
         password,
       });
 
-      // 🔒 Save token to localStorage
-      localStorage.setItem("token", response.data.token);
+      // // 🔒 Save token to localStorage
+      // localStorage.setItem("token", response.data.token);
+      login(response.data.token); //use context to login
 
       // Optionally store admin details
       // localStorage.setItem("admin", JSON.stringify(response.data.admin));

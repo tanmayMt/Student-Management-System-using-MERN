@@ -147,7 +147,7 @@ exports.updateStudent = async (req, res) => {
     }
     res.json({
       succes:true,
-      message:"Post is Updated successfully",
+      message:"Student Information is Updated successfully",
       data: {updateStudent}
     });
   } catch (error) {

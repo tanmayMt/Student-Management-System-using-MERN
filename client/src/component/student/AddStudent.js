@@ -32,54 +32,45 @@ const AddStudent = () => {
 const saveStudent = async (e) => {
   e.preventDefault();
   try {
+    const token = localStorage.getItem("token"); // Get token from localStorage
+
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/student/add-student`,
-      student
+      student,
+      {
+        headers: {
+          Authorization: `${token}`, // ⬅️ Add token here
+        },
+      }
     );
 
-    // 🎉 Show success notification
     toast.success("Student added successfully!", {
       position: "top-center",
       autoClose: 1300,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
       theme: "dark",
     });
 
-    // Navigate after 3 seconds
     setTimeout(() => {
       navigate("/student/all-students");
     }, 1300);
   } catch (error) {
-	console.error("Error Adding the student:", error);
-    // Check if the email already exists
+    console.error("Error Adding the student:", error);
     if (error.response && error.response.status === 400) {
-      // ❌ Show toast notification if email exists
       toast.error("⚠️ Email already exists. Please use a different email.", {
         position: "top-right",
         autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
         theme: "dark",
       });
     } else {
-      // ❌ Show generic error toast
       toast.error("❌ Error adding student. Please try again!", {
         position: "top-right",
         autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
         theme: "dark",
       });
     }
   }
 };
+
 
 	return (
 		<div className="col-sm-8 py-2 px-5 offset-2 shadow">

@@ -19,42 +19,57 @@ const StudentProfile = () => {
 		loadStudent();
 	}, []);
 
-	const loadStudent = async () => {
-		try {
-			const result = await axios.get(
-				`${process.env.REACT_APP_API_URL}/student/student-profile/${id}`
-			);
+const loadStudent = async () => {
+	try {
+		const token = localStorage.getItem("token"); // ⬅️ Fetch the token from storage
 
-			if (result.status === 200) {
-				setStudent(result.data.data);
-				setLoading(false);
-				// 🎉 Show success notification
-				toast.success("✅ Student profile loaded successfully!", {
-					position: "top-center",
-					autoClose: 1200,
-					theme: "colored",
-				});
+		const result = await axios.get(
+			`${process.env.REACT_APP_API_URL}/student/student-profile/${id}`,
+			{
+				headers: {
+					Authorization: `${token}`, // ⬅️ Send the token here
+				},
+				validateStatus: () => true, // optionally handle non-200 responses gracefully
 			}
-		} catch (error) {
+		);
+
+		if (result.status === 200) {
+			setStudent(result.data.data);
 			setLoading(false);
-			console.error("Error fetching student profile:", error);
-
-			// 🚨 Show error if student not found
-			if (error.response && error.response.status === 404) {
-				toast.error("⚠️ Student not found! Check the ID.", {
-					position: "top-center",
-					autoClose: 1500,
-					theme: "dark",
-				});
-			} else {
-				toast.error("❌ Error fetching student details!", {
-					position: "top-center",
-					autoClose: 1500,
-					theme: "dark",
-				});
-			}
+			toast.success("✅ Student profile loaded successfully!", {
+				position: "top-center",
+				autoClose: 1200,
+				theme: "colored",
+			});
+		} else {
+			throw new Error("Profile load failed");
 		}
-	};
+	} catch (error) {
+		setLoading(false);
+		console.error("Error fetching student profile:", error);
+
+		if (error.response && error.response.status === 404) {
+			toast.error("⚠️ Student not found! Check the ID.", {
+				position: "top-center",
+				autoClose: 1500,
+				theme: "dark",
+			});
+		} else if (error.response && error.response.status === 401) {
+			toast.error("🔒 Unauthorized. Please log in.", {
+				position: "top-center",
+				autoClose: 1500,
+				theme: "dark",
+			});
+		} else {
+			toast.error("❌ Error fetching student details!", {
+				position: "top-center",
+				autoClose: 1500,
+				theme: "dark",
+			});
+		}
+	}
+};
+
 
 	return (
 		<section className="shadow" style={{ backgroundColor: "#f8f9fa" }}>
