@@ -14,8 +14,9 @@ const app = express();
 connectDB();
 
 // ✅ CORS Configuration
+const CLIENT_URL = process.env.CLIENT_URL;
 const corsOptions = {
-    origin: "http://localhost:3000", // Allow frontend requests
+    origin: CLIENT_URL, // Allow frontend requests
     //origin: "https://student-management-system-using-mern.vercel.app",    // https://student-management-system-using-mern.vercel.app
     methods: "GET,POST,PUT,DELETE",
     credentials: true // Allow cookies and authentication headers
