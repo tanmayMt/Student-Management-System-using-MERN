@@ -29,7 +29,8 @@ const Login = () => {
       navigate("/student/all-students");
 
     } catch (err) {
-      alert("Login failed: " + err.response?.data?.msg || "Server error");
+      alert("Login failed: " + (err.response?.data?.msg || "Server error"));
+
     }
   };
 
