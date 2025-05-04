@@ -30,14 +30,14 @@ app.use(express.urlencoded({ extended: true })); // Add this line
 
 
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("<h1>Welcome To Student Management Server</h1>")
 });
-app.use("/student",studentRoute);
-app.use("/admin",adminRoute)
+app.use("/student", studentRoute);
+app.use("/admin", adminRoute)
 
 const PORT = process.env.PORT;
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`Server is Running at http://localhost:${PORT}`)
 });
