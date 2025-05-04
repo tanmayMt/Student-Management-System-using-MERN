@@ -16,8 +16,8 @@ connectDB();
 // ✅ CORS Configuration
 const CLIENT_URL = process.env.CLIENT_URL;
 const corsOptions = {
-    // origin: CLIENT_URL, // Allow frontend requests
-    origin: "https://student-management-system-using-mern.vercel.app",    // https://student-management-system-using-mern.vercel.app
+    origin: CLIENT_URL, // Allow frontend requests
+    //origin: "https://student-management-system-using-mern.vercel.app",    // https://student-management-system-using-mern.vercel.app
     methods: "GET,POST,PUT,DELETE",
     credentials: true // Allow cookies and authentication headers
 };
